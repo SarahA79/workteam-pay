@@ -16,28 +16,116 @@ eddie = SHEET.worksheet('Eddie')
 data = eddie.get_all_values()
 print(data)
 
-
 def get_colleague_sheet():
     """
     Gets the sheet for a specific colleague from user input.
     Validates if the sheet exists.
     """
-    while True: 
-        print("Please enter colleague's name: ")
+    while True:  # Loop until valid input is provided
+        print("Please enter colleague's name or sheet required: ")
         colleague = input("Name: ").capitalize()
 
         try:
             # Try to access the worksheet by name
             sheet = SHEET.worksheet(colleague)
-            data = sheet.get_all_values()
-            print(data)
-            break  # Exit the loop once a valid sheet is found
+            print(f"Successfully loaded sheet for '{colleague}'.")
+            return sheet  # Return the sheet once found
         
         except gspread.exceptions.WorksheetNotFound:
-            # If the worksheet is not found, prompt user again
             print(f"Error: Sheet for '{colleague}' not found. Please check your spelling and try again.")
         except Exception as e:
-            #catch other errors as encountered
             print(f"An unexpected error occurred: {str(e)}")
 
-get_colleague_sheet()
+
+def add_hours():
+    """
+    Adds hours worked for a colleague for a specific week.
+    If the week number doesn't exist, it appends the new week with the hours.
+    """
+    sheet = get_colleague_sheet() 
+    week_num = input("Enter the week number you want to update: ")
+    
+    try:
+        week_num = int(week_num)
+    except ValueError:
+        print("Invalid week number. Please enter a valid number.")
+        return
+
+    print("Please enter the hours worked for each day (Monday to Sunday), separated by commas.")
+    hours_input = input("Enter hours (e.g., 8,8,8,8,8,0,0): ")
+    hours = hours_input.split(",")
+    
+    # Validate that exactly 7 values are provided
+    if len(hours) != 7:
+        print(f"Error: You must provide exactly 7 values for hours worked (Monday to Sunday). You entered {len(hours)} values.")
+        return
+
+    # Convert hours to floats and validate that they are numerical
+    try:
+        hours = [float(hour.strip()) for hour in hours]
+    except ValueError:
+        print("Error: Please ensure all entered hours are valid numbers.")
+        return
+    data = sheet.get_all_values()
+    week_found = False
+
+    for row_id, row in enumerate(data):
+        if row[0] == str(week_num):
+            print(f"Week number {week_num} for '{sheet.title} already exists'.")
+            week_found = True
+            break
+
+    if not week_found:
+        total_hours = calculate_total_hours(hours)
+        net_pay = calculate_pay(total_hours)
+        new_row = [week_num] + hours + [total_hours, net_pay]
+        sheet.append_row(new_row)
+        print(f"Week {week_num} successfully added to the sheet '{sheet.title}' with hours {hours}. \nTotal hours worked: {total_hours}, Net pay for the week: €{net_pay}")
+
+
+def calculate_total_hours(hours):
+    """
+    Calculates total hours worked for the week for a colleague.
+    """
+    total = 0
+    for hour in hours:
+        total += float(hour)
+    return total
+
+
+def calculate_pay(total_hours):
+    """
+    automatically totals net pay when new hours added
+    """
+    pay = total_hours * 13.8
+    return round(pay, 2)
+
+
+def main_menu():
+    """
+    Displays the main menu and handles user input to either
+    call a function or exit the program.
+    """
+    while True: 
+        print("\n--- Workday Pay Management System ---")
+        print("1. Add hours for a colleague")
+        print("2. Get data for collegue")
+        print("3. Exit")
+
+        choice = input("Enter your choice (1, 2 or 3): ")
+
+        if choice == '1':
+            add_hours()  # Call the add_hours function to add hours for a colleague
+        elif choice == '2':
+            sheet_info = get_colleague_sheet()
+            print(sheet_info.get_all_values())
+
+        elif choice == '3':
+            print("Thanks for using Workday Pay Management System")
+            break  # Exit the loop and terminate the program
+        else:
+            print("Invalid choice. Please enter 1 to add hours or 2 to view data for a collegue or 3 to exit the progrm.")
+
+
+if __name__ == "__main__":
+    main_menu()
