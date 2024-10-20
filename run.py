@@ -12,9 +12,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('workday-pay-sheet')
 
-eddie = SHEET.worksheet('Eddie')
-data = eddie.get_all_values()
-print(data)
 
 def get_colleague_sheet():
     """
@@ -23,13 +20,13 @@ def get_colleague_sheet():
     """
     while True:  # Loop until valid input is provided
         print("Please enter colleague's name or sheet required: ")
-        colleague = input("Name: ").capitalize()
+        colleague = input("Name: \n").capitalize()
 
         try:
             # Try to access the worksheet by name
             sheet = SHEET.worksheet(colleague)
             print(f"Successfully loaded sheet for '{colleague}'.")
-            return sheet  # Return the sheet once found
+            return sheet 
         
         except gspread.exceptions.WorksheetNotFound:
             print(f"Error: Sheet for '{colleague}' not found. Please check your spelling and try again.")
@@ -43,7 +40,7 @@ def add_hours():
     If the week number doesn't exist, it appends the new week with the hours.
     """
     sheet = get_colleague_sheet() 
-    week_num = input("Enter the week number you want to update: ")
+    week_num = input("Enter the week number you want to update: \n")
     
     try:
         week_num = int(week_num)
@@ -52,7 +49,7 @@ def add_hours():
         return
 
     print("Please enter the hours worked for each day (Monday to Sunday), separated by commas.")
-    hours_input = input("Enter hours (e.g., 8,8,8,8,8,0,0): ")
+    hours_input = input("Enter hours (e.g., 8,8,8,8,8,0,0): \n")
     hours = hours_input.split(",")
     
     # Validate that exactly 7 values are provided
@@ -112,7 +109,7 @@ def main_menu():
         print("2. Get data for collegue")
         print("3. Exit")
 
-        choice = input("Enter your choice (1, 2 or 3): ")
+        choice = input("Enter your choice (1, 2 or 3): \n")
 
         if choice == '1':
             add_hours()  # Call the add_hours function to add hours for a colleague
