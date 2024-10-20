@@ -17,3 +17,27 @@ data = eddie.get_all_values()
 print(data)
 
 
+def get_colleague_sheet():
+    """
+    Gets the sheet for a specific colleague from user input.
+    Validates if the sheet exists.
+    """
+    while True: 
+        print("Please enter colleague's name: ")
+        colleague = input("Name: ").capitalize()
+
+        try:
+            # Try to access the worksheet by name
+            sheet = SHEET.worksheet(colleague)
+            data = sheet.get_all_values()
+            print(data)
+            break  # Exit the loop once a valid sheet is found
+        
+        except gspread.exceptions.WorksheetNotFound:
+            # If the worksheet is not found, prompt user again
+            print(f"Error: Sheet for '{colleague}' not found. Please check your spelling and try again.")
+        except Exception as e:
+            #catch other errors as encountered
+            print(f"An unexpected error occurred: {str(e)}")
+
+get_colleague_sheet()
