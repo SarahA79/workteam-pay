@@ -169,3 +169,5 @@ Huge thanks goes to my project mento Dick Vlanderren for being ads helpful as po
 massive thanks goes to my supervisor at work for allowing me to plug away at this in extended breaks at work due to internet issues at home,
 Apologies and gratefuleness beyond words to my beautiful son who has had to endure an extended period of time going without his mummy and son playtimes graciously and beyond his years in understanding.
 Kera Cudmore of code Insitute for her readme guides and Lewis lwetb-b tutor for his guidance and encouragement
+
+Initial idea created from the love sandwiches model and adapted to make my own (hopefully) unique project.
