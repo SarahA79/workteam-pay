@@ -37,6 +37,15 @@ i craeted this app to make it easy for her to simply enter in the hours worked f
 5. data added to sheets properly with calculations for hours worked and pay due performed correctly with results printed back on completion of the method call
 when each method completes menu is reloaded until user selects to quit the program
 
+### Future development
+- Add new sheets for new collegues
+ - remove sheets for old collegues
+ - add collegues totals to the overall total sheet
+ - add in dates to replace week numbers with data validation
+ - update weeks where input error created incorrectly ie. wrong number of hours put in
+ - validation for maximum nuber of hours worked in a given day
+ - user confirmation method for use with sheet deletion, addtion of new sheets, updating previous entries
+
 
 ### Problems faced
 Login for Heroku locked me out of account for MFA security usb key not owned.
