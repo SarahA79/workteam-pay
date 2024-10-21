@@ -37,6 +37,42 @@ i craeted this app to make it easy for her to simply enter in the hours worked f
 5. data added to sheets properly with calculations for hours worked and pay due performed correctly with results printed back on completion of the method call
 when each method completes menu is reloaded until user selects to quit the program
 
+# Project Images
+
+## Bug Images
+
+### Bug 1
+![Bug 1 Image](views/images/bug1.png)
+
+### Bug 2
+![Bug 2 Image](views/images/bug2.png)
+
+### Bug 3
+![Bug 3 Image](views/images/bug3.png)
+
+## Other Images
+
+### Gitpod Internet Problem
+![Gitpod Internet Problem](views/images/gitpod_internet_problem.png)
+
+### Gitpod Internet 2
+![Gitpod/Internet issue](views/images/gitpod_internet2.png)
+
+### Heroku Bug 1
+![Heroku Bug 1](views/images/heroku_bug_1.png)
+
+### PEP8 Validation
+![PEP8 Validation](views/images/pep8_validation.png)
+
+### Testing 1
+![Testing 1](views/images/testing_1.png)
+
+### Testing 2
+![Testing 2](views/images/testing_2.png)
+
+### Testing 3
+![Testing 3](views/images/testing_3.png)
+
 ### Future development
 - Add new sheets for new collegues
  - remove sheets for old collegues
