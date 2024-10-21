@@ -107,21 +107,21 @@ def main_menu():
         print("\n--- Workday Pay Management System ---")
         print("1. Add hours for a colleague")
         print("2. Get data for collegue")
-        print("3. Exit")
+        print("3. Get a specific week pay and hours for collegue")
+        print("4. Exit")
 
-        choice = input("Enter your choice (1, 2 or 3): \n")
+        choice = input("Enter your choice: \n")
 
         if choice == '1':
-            add_hours()  # Call the add_hours function to add hours for a colleague
+            add_hours()  
         elif choice == '2':
             sheet_info = get_colleague_sheet()
             print(sheet_info.get_all_values())
-
         elif choice == '3':
             print("Thanks for using Workday Pay Management System")
-            break  # Exit the loop and terminate the program
+            break  
         else:
-            print("Invalid choice. Please enter 1 to add hours or 2 to view data for a collegue or 3 to exit the progrm.")
+            print("Invalid choice. Please enter 1 to add hours or 2 to view data for a collegue or 3 to exit the program.")
 
 
 if __name__ == "__main__":
