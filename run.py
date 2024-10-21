@@ -2,7 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets", 
+    "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
@@ -26,10 +26,10 @@ def get_colleague_sheet():
             # Try to access the worksheet by name
             sheet = SHEET.worksheet(colleague)
             print(f"Successfully loaded sheet for '{colleague}'.")
-            return sheet 
-        
+            return sheet
+
         except gspread.exceptions.WorksheetNotFound:
-            print(f"Error: Sheet for '{colleague}' not found. Please check your spelling and try again.")
+            print(f"Error: '{colleague}'s sheet  not found. Please try again")
         except Exception as e:
             print(f"An unexpected error occurred: {str(e)}")
 
@@ -39,22 +39,22 @@ def add_hours():
     Adds hours worked for a colleague for a specific week.
     If the week number doesn't exist, it appends the new week with the hours.
     """
-    sheet = get_colleague_sheet() 
+    sheet = get_colleague_sheet()
     week_num = input("Enter the week number you want to update: \n")
-    
+
     try:
         week_num = int(week_num)
     except ValueError:
         print("Invalid week number. Please enter a valid number.")
         return
 
-    print("Please enter the hours worked for each day (Monday to Sunday), separated by commas.")
+    print("Please enter the hours worked for each day, separated by commas.")
     hours_input = input("Enter hours (e.g., 8,8,8,8,8,0,0): \n")
     hours = hours_input.split(",")
-    
+
     # Validate that exactly 7 values are provided
     if len(hours) != 7:
-        print(f"Error: You must provide exactly 7 values for hours worked (Monday to Sunday). You entered {len(hours)} values.")
+        print(f"Error: You must provide exactly 7 values. {len(hours)} given")
         return
 
     # Convert hours to floats and validate that they are numerical
@@ -68,7 +68,7 @@ def add_hours():
 
     for row_id, row in enumerate(data):
         if row[0] == str(week_num):
-            print(f"Week number {week_num} for '{sheet.title} already exists'.")
+            print(f"Week number {week_num} for {sheet.title} already exists")
             week_found = True
             break
 
@@ -77,7 +77,9 @@ def add_hours():
         net_pay = calculate_pay(total_hours)
         new_row = [week_num] + hours + [total_hours, net_pay]
         sheet.append_row(new_row)
-        print(f"Week {week_num} successfully added to the sheet '{sheet.title}' with hours {hours}. \nTotal hours worked: {total_hours}, Net pay for the week: €{net_pay}")
+        print(f"Week {week_num} successfully added to the sheet {sheet.title}")
+        print(f"Total hours worked: {total_hours}")
+        print(f"Net pay for the week: €{net_pay}/n")
 
 
 def calculate_total_hours(hours):
@@ -103,25 +105,24 @@ def main_menu():
     Displays the main menu and handles user input to either
     call a function or exit the program.
     """
-    while True: 
+    while True:
         print("\n--- Workday Pay Management System ---")
         print("1. Add hours for a colleague")
         print("2. Get data for collegue")
-        print("3. Get a specific week pay and hours for collegue")
-        print("4. Exit")
+        print("3. Exit")
 
         choice = input("Enter your choice: \n")
 
         if choice == '1':
-            add_hours()  
+            add_hours()
         elif choice == '2':
             sheet_info = get_colleague_sheet()
             print(sheet_info.get_all_values())
         elif choice == '3':
             print("Thanks for using Workday Pay Management System")
-            break  
+            break
         else:
-            print("Invalid choice. Please enter 1 to add hours or 2 to view data for a collegue or 3 to exit the program.")
+            print("Invalid choice. Please enter a number from the menu")
 
 
 if __name__ == "__main__":
