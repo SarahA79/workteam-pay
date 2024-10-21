@@ -79,7 +79,7 @@ def add_hours():
         sheet.append_row(new_row)
         print(f"Week {week_num} successfully added to the sheet {sheet.title}")
         print(f"Total hours worked: {total_hours}")
-        print(f"Net pay for the week: €{net_pay}/n")
+        print(f"Net pay for the week: €{net_pay}\n")
 
 
 def calculate_total_hours(hours):

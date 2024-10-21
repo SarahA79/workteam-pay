@@ -50,6 +50,9 @@ when each method completes menu is reloaded until user selects to quit the progr
 ### Bug 3
 ![Bug 3 Image](images/bug3.png)
 
+### Bug 4
+![Bug 4 Image](images/bug4.png)
+
 ## Other Images
 
 ### Gitpod Internet Problem
